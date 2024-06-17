@@ -24,5 +24,9 @@
 
   .destination {
     width: calc(100% - 64px - 64px - 100px - 64px);
+
+    a {
+      color: lightgray;
+    }
   }
 }
