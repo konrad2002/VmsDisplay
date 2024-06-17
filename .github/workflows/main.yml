@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: 21.x
+  NODE_VERSION: 20.x
   CLI_VERSION: 18.0.4
 
   # Use docker.io for Docker Hub if empty
@@ -32,13 +32,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+          cache-dependency-path: './'
       - run: npm install
 
   #  test:
+  #    defaults:
+  #      run:
+  #        working-directory: tidal-harvest
   #    runs-on: ubuntu-latest
   #
   #    strategy:
@@ -48,17 +52,18 @@ jobs:
   #    needs: install
   #
   #    steps:
-  #      - uses: actions/checkout@v3
-  #      - name: Test (${{ matrix.Test }})
-  #        uses: actions/setup-node@v3
-  #        with:
-  #          node-version: ${{ env.NODE_VERSION }}
-  #          cache: 'npm'
-  #      - run: npm link @angular/cli@${{ env.CLI_VERSION }}
-  #      - if: ${{ matrix.Test == 'Lint' }}
-  #        run: npm run test:lint
-  #      - if: ${{ matrix.Test == 'Test' }}
-  #        run: npm run test:test
+  #    - uses: actions/checkout@v3
+  #    - name: Test (${{ matrix.Test }})
+  #      uses: actions/setup-node@v3
+  #      with:
+  #        node-version: ${{ env.NODE_VERSION }}
+  #        cache: 'npm'
+  #        cache-dependency-path: './tidal-harvest'
+  #    - run: npm link @angular/cli@${{ env.CLI_VERSION }}
+  #    - if: ${{ matrix.Test == 'Lint' }}
+  #      run: npm run test:lint
+  #    - if: ${{ matrix.Test == 'Test' }}
+  #      run: npm run test:test
 
   build:
     runs-on: ubuntu-latest
@@ -73,12 +78,13 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+          cache-dependency-path: './'
       - name: Cache build output
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-dist
         with:
-          path: dist/
+          path: ./dist/
           key: ${{ runner.os }}-${{ github.run_id }}
       - run: npm link @angular/cli@${{ env.CLI_VERSION }}
       - run: npm run build:${GITHUB_REF##*/}
@@ -122,11 +128,11 @@ jobs:
 
 
       - name: Use cached build output
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-dist
         with:
-          path: dist/
+          path: ./dist/
           key: ${{ runner.os }}-${{ github.run_id }}
 
       # Build and push Docker image with Buildx (don't push on PR)
@@ -135,7 +141,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: .
+          context: ./
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -160,14 +166,14 @@ jobs:
         env:
           cache-name: cache-dist
         with:
-          path: ./tidal-harvest/dist/
+          path: ./dist/
           key: ${{ runner.os }}-${{ github.run_id }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './tidal-harvest/dist/tidal-harvest/'
+          path: './dist/vms-display/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
