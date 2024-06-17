@@ -173,7 +173,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './dist/vms-display/'
+          path: './dist/vms-display/browser/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
