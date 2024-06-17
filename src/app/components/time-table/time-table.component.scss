@@ -17,9 +17,15 @@
     color: lime;
   }
 
+  .time-delayed {
+    color: red;
+  }
+
   .departure-time {
     width: 64px;
     display: inline-block;
+    vertical-align: middle;
+
     .time {
       display: block;
     }

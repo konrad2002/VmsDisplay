@@ -14,7 +14,7 @@
       <div class="departure" *ngIf="item.servingLine">
         <div class="departure-time">
           <span class="time time-planned">{{VmsService.getTimeString(item.dateTime)}}</span>
-          <span class="time time-real">{{VmsService.getTimeString(item.dateTime)}}</span>
+          <span *ngIf="item.realDateTime"  class="time time-real {{item.servingLine.delay > 0 ? 'time-delayed': ''}}">{{VmsService.getTimeString(item.realDateTime)}}</span>
         </div>
         <span class="name">{{item.servingLine.name}} {{item.servingLine.number}}</span>
         <span class="destination"><a href="?stopId={{item.servingLine.destID}}">{{item.servingLine.direction}}</a></span>
