@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:master": "ng build --base-href ./VmsDisplay/",
+    "build:master": "ng build --base-href /VmsDisplay/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
