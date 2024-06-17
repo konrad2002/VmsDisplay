@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {catchError, Observable, throwError} from "rxjs";
 import {TimeTableModel} from "../model/time-table.model";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {VmsTimeModel} from "../model/vms-time.model";
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,11 @@ export class VmsService {
     params = params.set("useRealtime", "1");
 
     return this.get(this.API_URL, "/VMSSL3/XSLT_DM_REQUEST", params);
+  }
+
+  public static getTimeString(time: VmsTimeModel): string {
+    let hours = "0" + time.hour;
+    let minutes = "0" + time.minute;
+    return hours.substr(-2)+ ":" + minutes.substr(-2);
   }
 }

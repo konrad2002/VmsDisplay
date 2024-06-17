@@ -17,13 +17,21 @@
     color: lime;
   }
 
+  .departure-time {
+    width: 64px;
+    display: inline-block;
+    .time {
+      display: block;
+    }
+  }
+
   .name {
     font-weight: bold;
     width: 100px;
   }
 
   .destination {
-    width: calc(100% - 64px - 64px - 100px - 64px);
+    width: calc(100% - 64px - 100px - 64px);
 
     a {
       color: lightgray;

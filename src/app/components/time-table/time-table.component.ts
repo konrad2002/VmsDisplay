@@ -44,4 +44,6 @@ export class TimeTableComponent implements OnInit {
       this.timeTable = data
     })
   }
+
+  protected readonly VmsService = VmsService;
 }

@@ -12,8 +12,10 @@
   <ng-container *ngIf="timeTable && timeTable.servingLines">
     @for (item of timeTable.departureList; track item) {
       <div class="departure" *ngIf="item.servingLine">
-        <span class="time time-planned">{{item.dateTime.hour}}:{{item.dateTime.minute}}</span>
-        <span class="time time-real">{{item.realDateTime.hour}}:{{item.realDateTime.minute}}</span>
+        <div class="departure-time">
+          <span class="time time-planned">{{VmsService.getTimeString(item.dateTime)}}</span>
+          <span class="time time-real">{{VmsService.getTimeString(item.dateTime)}}</span>
+        </div>
         <span class="name">{{item.servingLine.name}} {{item.servingLine.number}}</span>
         <span class="destination"><a href="?stopId={{item.servingLine.destID}}">{{item.servingLine.direction}}</a></span>
         <span class="time time-countdown">{{item.countdown}}min</span>
