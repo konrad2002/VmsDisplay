@@ -23,11 +23,10 @@ export class VmsService {
       .pipe(catchError(VmsService.formatErrors));
   }
 
-  public getTimeTable(name: string, nameInfo: string): Observable<TimeTableModel> {
+  public getTimeTable(nameInfo: string): Observable<TimeTableModel> {
     let params: HttpParams = new HttpParams();
     params = params.set("language", "de");
     params = params.set("mode", "direct");
-    params = params.set("name_dm", name);
     params = params.set("nameInfo_dm", nameInfo);
     params = params.set("type_dm", "any");
     params = params.set("outputFormat", "JSON");

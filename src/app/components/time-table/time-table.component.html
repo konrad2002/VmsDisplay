@@ -1,20 +1,23 @@
-<h2>Lines</h2>
-<ng-container *ngIf="timeTable && timeTable.servingLines">
-  @for (item of timeTable.servingLines.lines; track item) {
-    <div class="departure"><span class="name">{{item.mode.name}}</span> {{item.mode.destination}}</div>
-  }
-</ng-container>
+<ng-container *ngIf="timeTable">
+  <h2>{{timeTable.dm.input.input}}</h2>
+  <h3>Lines</h3>
+  <ng-container *ngIf="timeTable && timeTable.servingLines">
+    @for (item of timeTable.servingLines.lines; track item) {
+      <div class="departure"><span class="name">{{item.mode.name}}</span> {{item.mode.destination}}</div>
+    }
+  </ng-container>
 
-<h2>Departures</h2>
+  <h3>Departures</h3>
 
-<ng-container *ngIf="timeTable && timeTable.servingLines">
-  @for (item of timeTable.departureList; track item) {
-    <div class="departure" *ngIf="item.servingLine">
-      <span class="time time-planned">{{item.dateTime.hour}}:{{item.dateTime.minute}}</span>
-      <span class="time time-real">{{item.realDateTime.hour}}:{{item.realDateTime.minute}}</span>
-      <span class="name">{{item.servingLine.name}} {{item.servingLine.number}}</span>
-      <span class="destination">{{item.servingLine.direction}}</span>
-      <span class="time time-countdown">{{item.countdown}}min</span>
-    </div>
-  }
+  <ng-container *ngIf="timeTable && timeTable.servingLines">
+    @for (item of timeTable.departureList; track item) {
+      <div class="departure" *ngIf="item.servingLine">
+        <span class="time time-planned">{{item.dateTime.hour}}:{{item.dateTime.minute}}</span>
+        <span class="time time-real">{{item.realDateTime.hour}}:{{item.realDateTime.minute}}</span>
+        <span class="name">{{item.servingLine.name}} {{item.servingLine.number}}</span>
+        <span class="destination"><a href="?stopId={{item.servingLine.destID}}">{{item.servingLine.direction}}</a></span>
+        <span class="time time-countdown">{{item.countdown}}min</span>
+      </div>
+    }
+  </ng-container>
 </ng-container>

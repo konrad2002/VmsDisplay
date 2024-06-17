@@ -3,5 +3,6 @@ export interface ServingDepartureLineModel {
   symbol: string;
   direction: string;
   directionFrom: string;
+  destID: string;
   name: string;
 }
