@@ -1,0 +1,28 @@
+.departure {
+  display: block;
+  margin: 2px 0;
+  border-bottom: 1px solid #004b73;
+  padding: 4px;
+
+  span {
+    display: inline-block;
+  }
+
+  .time {
+    display: inline-block;
+    width: 64px;
+  }
+
+  .time-real {
+    color: lime;
+  }
+
+  .name {
+    font-weight: bold;
+    width: 100px;
+  }
+
+  .destination {
+    width: calc(100% - 64px - 64px - 100px - 64px);
+  }
+}
